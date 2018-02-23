@@ -18,7 +18,6 @@ class Lane extends Component {
   state = {
     loading: false,
     currentPage: this.props.currentPage,
-    cards: this.props.cards,
     shouldUpdate: true,
     addCardMode: false
   }
@@ -64,7 +63,6 @@ class Lane extends Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.cards, nextProps.cards)) {
       this.setState({
-        cards: nextProps.cards,
         currentPage: nextProps.currentPage
       })
     }
@@ -124,10 +122,10 @@ class Lane extends Component {
   }
 
   renderDragContainer = (isDraggingOver) => {
-    const {laneSortFunction, editable, hideCardDeleteIcon, tagStyle, cardStyle, draggable} = this.props
+    const {laneSortFunction, editable, hideCardDeleteIcon, tagStyle, cardStyle, draggable, cards} = this.props
     const {addCardMode} = this.state
 
-    const cardList = this.sortCards(this.state.cards, laneSortFunction).map((card, idx) => (
+    const cardList = this.sortCards(cards, laneSortFunction).map((card, idx) => (
       <Card
         key={card.id}
         index={idx}
